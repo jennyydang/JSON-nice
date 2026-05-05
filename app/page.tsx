@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { prettifyJSON } from "@/lib/prettify";
 
 type Status = "idle" | "success" | "error";
@@ -13,16 +13,16 @@ export default function Home() {
   const [fileName, setFileName] = useState("prettified.json");
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const handlePrettify = useCallback(() => {
+  useEffect(() => {
     const raw = input.trim();
     if (!raw) {
-      setErrorMsg("Please paste or upload some JSON first.");
-      setStatus("error");
+      setOutput("");
+      setStatus("idle");
+      setErrorMsg("");
       return;
     }
     try {
-      const result = prettifyJSON(raw);
-      setOutput(result);
+      setOutput(prettifyJSON(raw));
       setStatus("success");
       setErrorMsg("");
     } catch (e: unknown) {
@@ -94,7 +94,7 @@ export default function Home() {
           JSON <span className="text-emerald-400">Nice</span>
         </span>
         <span className="text-gray-500 text-sm mt-0.5">
-          — prettify &amp; expand stringified JSON
+          — format &amp; expand stringified JSON
         </span>
       </header>
 
@@ -158,15 +158,6 @@ export default function Home() {
               <span>{errorMsg}</span>
             </div>
           )}
-
-          {/* Prettify button */}
-          <button
-            onClick={handlePrettify}
-            className="flex items-center justify-center gap-2 w-full py-3 rounded-lg bg-emerald-500 hover:bg-emerald-400 active:bg-emerald-600 text-gray-950 font-semibold text-sm transition-colors cursor-pointer shadow-lg shadow-emerald-900/40"
-          >
-            <SparkleIcon />
-            Prettify
-          </button>
         </section>
 
         {/* Output panel */}
@@ -202,9 +193,7 @@ export default function Home() {
               </pre>
             ) : (
               <div className="w-full h-full min-h-[400px] lg:min-h-0 rounded-lg bg-gray-900 border border-dashed border-gray-700 flex items-center justify-center text-gray-600 text-sm">
-                {status === "success"
-                  ? "Done."
-                  : "Your formatted JSON will appear here."}
+                Your formatted JSON will appear here.
               </div>
             )}
           </div>
@@ -335,12 +324,3 @@ function ErrorIcon() {
   );
 }
 
-function SparkleIcon() {
-  return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M12 3l1.5 4.5L18 9l-4.5 1.5L12 15l-1.5-4.5L6 9l4.5-1.5z" />
-      <path d="M19 3l.75 2.25L22 6l-2.25.75L19 9l-.75-2.25L16 6l2.25-.75z" />
-      <path d="M5 18l.75 2.25L8 21l-2.25.75L5 24l-.75-2.25L2 21l2.25-.75z" />
-    </svg>
-  );
-}
