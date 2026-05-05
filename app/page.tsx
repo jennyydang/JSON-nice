@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import { prettifyJSON } from "@/lib/prettify";
 
 type Status = "idle" | "success" | "error";
@@ -13,12 +13,11 @@ export default function Home() {
   const [fileName, setFileName] = useState("prettified.json");
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  useEffect(() => {
+  const handleCleanUp = useCallback(() => {
     const raw = input.trim();
     if (!raw) {
-      setOutput("");
-      setStatus("idle");
-      setErrorMsg("");
+      setErrorMsg("Please paste or upload some JSON first.");
+      setStatus("error");
       return;
     }
     try {
@@ -144,6 +143,7 @@ export default function Home() {
               onChange={(e) => {
                 setInput(e.target.value);
                 setStatus("idle");
+                setOutput("");
               }}
               placeholder={`Paste JSON here…\n\nOr drag & drop a .json file onto this area.`}
               spellCheck={false}
@@ -158,6 +158,15 @@ export default function Home() {
               <span>{errorMsg}</span>
             </div>
           )}
+
+          {/* Clean up button */}
+          <button
+            onClick={handleCleanUp}
+            className="flex items-center justify-center gap-2 w-full py-3 rounded-lg bg-emerald-500 hover:bg-emerald-400 active:bg-emerald-600 text-gray-950 font-semibold text-sm transition-colors cursor-pointer shadow-lg shadow-emerald-900/40"
+          >
+            <BroomIcon />
+            Clean up
+          </button>
         </section>
 
         {/* Output panel */}
@@ -310,6 +319,17 @@ function DownloadIcon() {
       <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
       <polyline points="7 10 12 15 17 10" />
       <line x1="12" y1="15" x2="12" y2="3" />
+    </svg>
+  );
+}
+
+function BroomIcon() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M3 21l8-8" />
+      <path d="M12.5 7.5l-1 1" />
+      <path d="M18 3l3 3-9.5 9.5-4-1L18 3z" />
+      <path d="M7 17l-4 4" />
     </svg>
   );
 }
