@@ -86,19 +86,19 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="flex flex-col min-h-screen bg-gray-950">
+    <div className="flex flex-col min-h-screen bg-gray-50">
       {/* Header */}
-      <header className="border-b border-gray-800 px-6 py-4 flex items-center gap-3">
-        <span className="text-2xl font-bold tracking-tight text-white">
-          JSON <span className="text-emerald-400">Nice</span>
+      <header className="border-b border-gray-200 bg-white px-6 py-4 flex items-center gap-3">
+        <span className="text-2xl font-bold tracking-tight text-gray-900">
+          JSON <span className="text-emerald-600">Nice</span>
         </span>
-        <span className="text-gray-500 text-sm mt-0.5">
+        <span className="text-gray-400 text-sm mt-0.5">
           — format &amp; expand stringified JSON
         </span>
       </header>
 
       {/* Main */}
-      <main className="flex-1 grid grid-cols-1 lg:grid-cols-2 gap-0 divide-y lg:divide-y-0 lg:divide-x divide-gray-800">
+      <main className="flex-1 grid grid-cols-1 lg:grid-cols-2 gap-0 divide-y lg:divide-y-0 lg:divide-x divide-gray-200">
         {/* Input panel */}
         <section className="flex flex-col p-6 gap-4">
           <div className="flex items-center justify-between">
@@ -108,7 +108,7 @@ export default function Home() {
             <div className="flex gap-2">
               <button
                 onClick={() => fileInputRef.current?.click()}
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium bg-gray-800 text-gray-300 hover:bg-gray-700 hover:text-white transition-colors cursor-pointer"
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium bg-gray-100 text-gray-600 hover:bg-gray-200 hover:text-gray-900 transition-colors cursor-pointer"
               >
                 <UploadIcon />
                 Upload JSON
@@ -123,7 +123,7 @@ export default function Home() {
               {input && (
                 <button
                   onClick={handleClear}
-                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium bg-gray-800 text-gray-400 hover:bg-gray-700 hover:text-red-400 transition-colors cursor-pointer"
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium bg-gray-100 text-gray-500 hover:bg-gray-200 hover:text-red-500 transition-colors cursor-pointer"
                 >
                   <ClearIcon />
                   Clear
@@ -147,13 +147,13 @@ export default function Home() {
               }}
               placeholder={`Paste JSON here…\n\nOr drag & drop a .json file onto this area.`}
               spellCheck={false}
-              className="w-full h-full min-h-[400px] lg:min-h-0 resize-none rounded-lg bg-gray-900 border border-gray-700 text-gray-200 text-sm font-mono p-4 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent placeholder-gray-600 transition-colors"
+              className="w-full h-full min-h-[400px] lg:min-h-0 resize-none rounded-lg bg-white border border-gray-300 text-gray-800 text-sm font-mono p-4 focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:border-transparent placeholder-gray-400 transition-colors"
             />
           </div>
 
           {/* Error */}
           {status === "error" && (
-            <div className="flex items-start gap-2 rounded-lg bg-red-950 border border-red-800 px-4 py-3 text-sm text-red-300">
+            <div className="flex items-start gap-2 rounded-lg bg-red-50 border border-red-200 px-4 py-3 text-sm text-red-600">
               <ErrorIcon />
               <span>{errorMsg}</span>
             </div>
@@ -162,7 +162,7 @@ export default function Home() {
           {/* Clean up button */}
           <button
             onClick={handleCleanUp}
-            className="flex items-center justify-center gap-2 w-full py-3 rounded-lg bg-emerald-500 hover:bg-emerald-400 active:bg-emerald-600 text-gray-950 font-semibold text-sm transition-colors cursor-pointer shadow-lg shadow-emerald-900/40"
+            className="flex items-center justify-center gap-2 w-full py-3 rounded-lg bg-emerald-500 hover:bg-emerald-600 active:bg-emerald-700 text-white font-semibold text-sm transition-colors cursor-pointer shadow-sm"
           >
             <BroomIcon />
             Clean up
@@ -170,7 +170,7 @@ export default function Home() {
         </section>
 
         {/* Output panel */}
-        <section className="flex flex-col p-6 gap-4">
+        <section className="flex flex-col p-6 gap-4 bg-gray-50">
           <div className="flex items-center justify-between">
             <h2 className="text-sm font-semibold text-gray-400 uppercase tracking-widest">
               Output
@@ -179,14 +179,14 @@ export default function Home() {
               <div className="flex gap-2">
                 <button
                   onClick={handleCopy}
-                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium bg-gray-800 text-gray-300 hover:bg-gray-700 hover:text-white transition-colors cursor-pointer"
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium bg-gray-100 text-gray-600 hover:bg-gray-200 hover:text-gray-900 transition-colors cursor-pointer"
                 >
                   <CopyIcon />
                   Copy
                 </button>
                 <button
                   onClick={handleDownload}
-                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium bg-emerald-800 text-emerald-200 hover:bg-emerald-700 hover:text-white transition-colors cursor-pointer"
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium bg-emerald-500 text-white hover:bg-emerald-600 transition-colors cursor-pointer"
                 >
                   <DownloadIcon />
                   Download JSON
@@ -197,18 +197,18 @@ export default function Home() {
 
           <div className="relative flex-1">
             {output ? (
-              <pre className="w-full h-full min-h-[400px] lg:min-h-0 overflow-auto rounded-lg bg-gray-900 border border-gray-700 text-sm font-mono p-4 text-gray-200 leading-relaxed">
+              <pre className="w-full h-full min-h-[400px] lg:min-h-0 overflow-auto rounded-lg bg-white border border-gray-200 text-sm font-mono p-4 text-gray-800 leading-relaxed shadow-sm">
                 <ColorizedJSON json={output} />
               </pre>
             ) : (
-              <div className="w-full h-full min-h-[400px] lg:min-h-0 rounded-lg bg-gray-900 border border-dashed border-gray-700 flex items-center justify-center text-gray-600 text-sm">
+              <div className="w-full h-full min-h-[400px] lg:min-h-0 rounded-lg bg-white border border-dashed border-gray-300 flex items-center justify-center text-gray-400 text-sm">
                 Your formatted JSON will appear here.
               </div>
             )}
           </div>
 
           {output && (
-            <p className="text-xs text-gray-600">
+            <p className="text-xs text-gray-400">
               {output.split("\n").length.toLocaleString()} lines ·{" "}
               {(new Blob([output]).size / 1024).toFixed(1)} KB
             </p>
@@ -237,9 +237,8 @@ function ColorizedJSON({ json }: { json: string }) {
 
     if (str) {
       if (colon) {
-        // object key
         parts.push(
-          <span key={match.index} className="text-sky-300">
+          <span key={match.index} className="text-blue-600">
             {str}
           </span>,
           <span key={match.index + "c"} className="text-gray-400">
@@ -247,28 +246,27 @@ function ColorizedJSON({ json }: { json: string }) {
           </span>
         );
       } else {
-        // string value
         parts.push(
-          <span key={match.index} className="text-amber-300">
+          <span key={match.index} className="text-emerald-600">
             {str}
           </span>
         );
       }
     } else if (num) {
       parts.push(
-        <span key={match.index} className="text-purple-300">
+        <span key={match.index} className="text-violet-600">
           {num}
         </span>
       );
     } else if (kw) {
       parts.push(
-        <span key={match.index} className="text-rose-400">
+        <span key={match.index} className="text-rose-500">
           {kw}
         </span>
       );
     } else if (punct) {
       parts.push(
-        <span key={match.index} className="text-gray-500">
+        <span key={match.index} className="text-gray-400">
           {punct}
         </span>
       );
@@ -343,4 +341,3 @@ function ErrorIcon() {
     </svg>
   );
 }
-
